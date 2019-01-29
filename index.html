@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link href='https://fonts.googleapis.com/css?family=Audiowide|Lato|Iceland|Monoton|Pacifico|Press+Start+2P|Vampiro+One' rel='stylesheet' type='text/css'>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="css/colorpicker.css">
+	<link rel="stylesheet" href="css/style.css">
+
+<!-- <meta name="apple-mobile-web-app-capable" content="yes"> -->
+<!-- <meta name="apple-mobile-web-app-status-barstyle" content="black-translucent"> -->
+<!-- <link rel="apple-touch-icon" href="icon-152.png"> -->
+<!-- for Chrome on Android, multi-resolution icon of 196x196 -->
+<!-- <meta name="mobile-web-app-capable" content="yes"> -->
+
+</head>
+<body onload="onLoad()">
+	<div id="blendOver"></div>
+	<div id="setting">
+		<ul>
+			<li>
+				<span>LIGHT IN ROOM</span>
+				<select name="" id="" onchange="app.changeLight(this)">
+					<option value="10">0</option>
+					<option value="9">1</option>
+					<option value="8">2</option>
+					<option value="7">3</option>
+					<option value="6">4</option>
+					<option value="5">5</option>
+					<option value="4">6</option>
+					<option value="3">7</option>
+					<option value="2">8</option>
+					<option value="1">9</option>
+					<option selected value="0">10</option>
+				</select>
+			</li>
+			<li>
+				<span>CLOUD SPEED</span>
+				<select name="" id="" onchange="app.cloudSpeed(this)">
+					<option value="0">0</option>
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option selected value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					<option  value="10">10</option>
+				</select>
+			</li>
+
+				<li>
+				<span>BALL INTENSITY</span>
+				<select name="" id="" onchange="app.ballIntensity(this)">
+					<option value="0">0</option>
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option selected value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					<option  value="10">10</option>
+				</select>
+			</li>
+
+			<li>
+				<span>BALL VIBRATION</span>
+				<select name="" id="" onchange="app.ballVibrate(this)">
+					<option selected value="0">0</option>
+					<option value="3">1</option>
+					<option value="2">2</option>
+					<option value="1">3</option>
+					</select>
+			</li>
+
+				<li>
+				<span>BALL Light COlor</span>
+				<div id="picker"></div>
+				<div id="colorpickerHolder"></div>
+			</li>
+
+		</ul>
+	</div>
+	
+
+
+
+	<div class="wrapper">
+	<div class="main_wrap">
+	<div class="main_logo">
+		<span class="neon">Psychic</span>
+		<div class="bar_loading"><div class="barInner"></div></div>
+		<p class="anim_load">
+			<b>
+			<span>Initializing Enviroments...</span><span>Generating  Rooms...</span><span>Generating  Lights...</span><span>Finalizing...</span>
+			</b>
+		</p>
+	</div>
+	</div>
+
+	<!-- ROOM IMAGE in BACKGROUND IN style.css line no. 353 -->
+	<div  id="room">
+
+
+	<!-- ROOM IMAGE in BACKGROUND IN style.css line no. 365 -->
+	<div id="room_img" ></div>
+	<!-- END ROOM -->
+	
+	<div class="obj_wrap">
+	<div id="globe">
+		<div class="glb">
+		 <div id="thunder">
+			<div class="in_thund">
+			<img src="images/cloud.png" id="cl1" alt="">
+			<img src="images/cloud.png" id="cl2" alt="">
+			<img src="images/cloud.png" id="cl3" alt="">
+		 </div>
+		</div>
+		<img src="images/globe.png" alt="">
+		<div id="light_globe"></div>
+		</div>
+	
+
+<!-- CANDLE START -->
+<div id="cand">	
+	<img src="images/candle.png" id="can1" alt="">
+	<div class="candle" id="flam1">
+	  <div class="flame">
+    <div class="shadows"></div>
+    <div class="top"></div>
+    <div class="middle"></div>
+    <div class="bottom"></div>
+  </div>
+  <div class="wick"></div>
+  <div class="wax"></div>
+</div>	
+</div>
+<!-- CANDLE END -->
+
+
+
+</div>	
+</div><!-- obj_warp -->
+
+</div>
+
+
+</div>	
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/camanjs/4.0.0/caman.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.8.1/pixi.min.js"></script>
+<!-- For COLOR PICKER -->
+<script src="js/colorpicker.js"></script>
+<script src="js/eye.js"></script>
+<!-- END COLOR PICKER -->
+
+<!-- APP JS IS FOR DEVELOPMENT VERSION -->
+ <!-- <script src="js/app.js"></script> -->
+<!-- END APP JS  -->
+
+ <!-- APP MIN JS is for Production version  -->
+ <script src="js/app.min.js"></script>
+<!-- END APP MIN -->
+
+<script>
+var app;
+	function onLoad(){
+	/*INIT APP*/
+	app=new physic();
+	app.init();		
+	/*INIT APP END*/
+	
+	/*COLOR PICKER*/
+	$('#colorpickerHolder').ColorPicker({
+		flat: true,
+		onChange: function(hsb, hex, rgb, el) {
+		console.log(hex);
+		$('#light_globe,#picker,#blendOver').css({"background":"#"+hex});
+
+		}
+
+	});
+	$('#picker').click(function(){
+		$('#colorpickerHolder').fadeToggle();
+	})
+
+	/*COLOR PICKER END*/
+}
+</script>
+
+</body>
+</html>
